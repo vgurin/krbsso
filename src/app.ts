@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
         const ad = new ActiveDirectory({
             "url": process.env.AD_LDAP_URL,   //ldap://mydomain.local
             "baseDN": process.env.AD_BASE_DN, //dc=mydomain,dc=local
-            "username": process.env.AD_USER,  //administrator.mydomain.local
+            "username": process.env.AD_USER,  //administrator@mydomain.local
             "password": process.env.AD_PASS   //password
 		});
 		const ticket = req.headers.authorization.substring(10);
