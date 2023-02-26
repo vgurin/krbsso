@@ -1,3 +1,2 @@
 # krbsso
-example of authorization in AD via kerberos (SSO or login/pass)
-only for linux node.js
+example of Node authenticate via kerberos SSO in AD 
