@@ -1,9 +1,10 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import ActiveDirectory from 'activedirectory2';
 import {initializeServer} from 'kerberos';
+dotenv.config()
 const app = express();
 const port = 5000;
-
 app.get('/', (req, res) => {
     console.log('-----request-----');
     console.log(req.headers);
@@ -15,17 +16,12 @@ app.get('/', (req, res) => {
         res.status(401).send();
 
     } else {
-		let server: {
-			contextComplete: boolean,
-  			targetName: string,
-  			response: string,
-  			username: string
-		};
         const ad = new ActiveDirectory({
             "url": "ldap://spb.local",
             "baseDN": "dc=spb,dc=local",
-            "username": "vv_gurin@spb.local",
-            "password": "Foll0wMe"});
+            "username": process.env.AD_USER,
+            "password": process.env.AD_PASS
+		});
 		const ticket = req.headers.authorization.substring(10);
 		initializeServer('', function(err, server) {
 			server.step(ticket,(err)=>{
@@ -36,7 +32,7 @@ app.get('/', (req, res) => {
 				} else {
 				console.log(server.username)
 			}
-			ad.findUser((server.username).split("@")[0], function(err, user: any) {
+			ad.findUser((server.username).split("@")[0], function(err, user:any) {
 				if (err) {
 					console.log('ERROR: ' +JSON.stringify(err));
 					res.send(err);
@@ -50,17 +46,16 @@ app.get('/', (req, res) => {
 						res.send(err);
 						return;
 					}
-					
 					if (! groups) console.log('User: ' + user.sAMAccountName + ' not found.');
 					else {
 						let response = '<p>Имя пользователя: '+ user.cn + '</p><p>Состоит в группах:</p><ul>';
-                        for (var i in groups) {response += '<li>' + groups[i].cn + '</li>';}
+                        for (const i in groups) {response += '<li>' + groups[i].cn + '</li>';}
                         res.send(response);
-					};
+					}
 					});
-				};
+				}
 				});
-			 })
+			})
 		})
 	}
 });

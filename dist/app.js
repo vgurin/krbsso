@@ -4,8 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
 const activedirectory2_1 = __importDefault(require("activedirectory2"));
 const kerberos_1 = require("kerberos");
+dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = 5000;
 app.get('/', (req, res) => {
@@ -18,12 +20,11 @@ app.get('/', (req, res) => {
         res.status(401).send();
     }
     else {
-        let server;
         const ad = new activedirectory2_1.default({
             "url": "ldap://spb.local",
             "baseDN": "dc=spb,dc=local",
-            "username": "vv_gurin@spb.local",
-            "password": "Foll0wMe"
+            "username": process.env.AD_USER,
+            "password": process.env.AD_PASS
         });
         const ticket = req.headers.authorization.substring(10);
         (0, kerberos_1.initializeServer)('', function (err, server) {
@@ -55,15 +56,13 @@ app.get('/', (req, res) => {
                                 console.log('User: ' + user.sAMAccountName + ' not found.');
                             else {
                                 let response = '<p>Имя пользователя: ' + user.cn + '</p><p>Состоит в группах:</p><ul>';
-                                for (var i in groups) {
+                                for (const i in groups) {
                                     response += '<li>' + groups[i].cn + '</li>';
                                 }
                                 res.send(response);
                             }
-                            ;
                         });
                     }
-                    ;
                 });
             });
         });
