@@ -17,8 +17,8 @@ app.get('/', (req, res) => {
 
     } else {
         const ad = new ActiveDirectory({
-            "url": "ldap://spb.local",
-            "baseDN": "dc=spb,dc=local",
+            "url": process.env.AD_LDAP_URL,
+            "baseDN": process.env.AD_BASE_DN,
             "username": process.env.AD_USER,
             "password": process.env.AD_PASS
 		});
