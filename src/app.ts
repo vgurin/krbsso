@@ -6,21 +6,20 @@ dotenv.config()
 const app = express();
 const port = 5000;
 app.get('/', (req, res) => {
-    console.log('-----request-----');
+    console.log('***request***');
     console.log(req.headers);
 
     if (!req.headers.authorization) {
         res.set( 'WWW-Authenticate', 'Negotiate' );
-        console.log('-----response-----');
+        console.log('***response***');
         console.log(res.getHeaders());
         res.status(401).send();
-
     } else {
         const ad = new ActiveDirectory({
-            "url": process.env.AD_LDAP_URL,
-            "baseDN": process.env.AD_BASE_DN,
-            "username": process.env.AD_USER,
-            "password": process.env.AD_PASS
+            "url": process.env.AD_LDAP_URL,   //ldap://mydomain.local
+            "baseDN": process.env.AD_BASE_DN, //dc=mydomain,dc=local
+            "username": process.env.AD_USER,  //administrator.mydomain.local
+            "password": process.env.AD_PASS   //password
 		});
 		const ticket = req.headers.authorization.substring(10);
 		initializeServer('', function(err, server) {

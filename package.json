@@ -1,7 +1,7 @@
 {
 	"name": "krbsso",
 	"version": "1.0.0",
-	"main": "app.ts",
+	"main": "src/app.ts",
 	"devDependencies": {
 		"@types/activedirectory2": "^1.2.3",
 		"@types/express": "^4.17.17",
@@ -14,10 +14,19 @@
 	"scripts": {
 		"start": "tsc && node dist/app.js"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"description": "",
+	"keywords": [
+		"kerberos",
+		"active",
+		"directory",
+		"node",
+		"sso",
+		"spnego",
+		"authentication",
+		"negotiate"
+	],
+	"author": "vvgurin",
+	"license": "MIT",
+	"description": "Authorization in AD kerberos (SSO) for linux node.js",
 	"dependencies": {
 		"activedirectory2": "^2.1.0",
 		"dotenv": "^16.0.3",
