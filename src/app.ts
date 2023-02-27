@@ -48,8 +48,8 @@ app.get('/', (req, res) => {
 					if (! groups) console.log('User: ' + user.sAMAccountName + ' not found.');
 					else {
 						let response = '<p>Имя пользователя: '+ user.cn + '</p><p>Состоит в группах:</p><ul>';
-                        for (const i in groups) {response += '<li>' + groups[i].cn + '</li>';}
-                        res.send(response);
+                        			for (const i in groups) {response += '<li>' + groups[i].cn + '</li>';}
+                        			res.send(response);
 					}
 					});
 				}
