@@ -1,18 +1,11 @@
 'use strict';
-import pify from 'pify';
 import {Request,Response,NextFunction} from 'express';
 import kerberos from 'kerberos';
 import createError from 'http-errors';
 
-export interface UserRequest extends Request {
-  username?: string,
-  auth?: {}
-}
-
 async function getTicketUser (token:string)  {
-	const krbos = pify(kerberos,{excludeMain:true});
 	try {
-		const server = await krbos.initializeServer('');
+		const server = await kerberos.initializeServer('');
 		await server.step(token);
 		return server.username;
 	} catch (e){
