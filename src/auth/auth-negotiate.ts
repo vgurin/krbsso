@@ -12,12 +12,11 @@ async function getTicketUser (token:string)  {
 		console.log("Ошибка kerberos");
 		return "Ошибка на стадии проверки билета";
 	}
-	
 };
 
 export function auth () {
 
-  return async (req:UserRequest, res:Response, next:NextFunction) => {
+  return async (req:Request, res:Response, next:NextFunction) => {
     const authenticationToken = req.get('authorization');
 
 	if (!authenticationToken) {
