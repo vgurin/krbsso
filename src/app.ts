@@ -1,12 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import ActiveDirectory from 'activedirectory2';
-import auth from "./auth/auth-negotiate.js"
+import auth from "./auth/auth-krb.js";
+import negotiate from './auth/negotiate.js';
 dotenv.config()
 const app = express();
-const port = 5000;
-
-app.use(auth())
+const port = 3000;
+app.use(negotiate(),auth())
 app.get('/', (req, res) => {
 	if (req.headers.username) {
 		const username = req.headers.username.toString()
@@ -41,7 +41,9 @@ app.get('/', (req, res) => {
 		});
 	}
 })
-	
+
+
+
 app.get('/login', (req, res) => {
 	res.send(`Hello ${req.headers.username}!`)
 })

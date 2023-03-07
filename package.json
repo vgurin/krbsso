@@ -11,6 +11,7 @@
 		"@types/kerberos": "^1.1.1",
 		"@types/nested-error-stacks": "^2.1.0",
 		"@types/pify": "^5.0.1",
+		"@types/request": "^2.48.8",
 		"@typescript-eslint/eslint-plugin": "^5.53.0",
 		"@typescript-eslint/parser": "^5.53.0",
 		"eslint": "^8.35.0",
@@ -37,6 +38,7 @@
 		"dotenv": "^16.0.3",
 		"express": "^4.18.2",
 		"http-errors": "^2.0.0",
-		"kerberos": "^1.1.7"
+		"kerberos": "^1.1.7",
+		"request": "^2.88.2"
 	}
 }
